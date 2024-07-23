@@ -12,3 +12,9 @@ data_dict = {
         'Chen_b_D001-12_lobe_NeuNM': 'amd_sample1',
         'Chen_b_D001-12_lobe_NeuNT': 'amd_sample2'
             }
+
+train29 = full29[~full29.obs['sampleid'].isin(data_dict.keys())]
+val29 = full29[full29.obs['sampleid'].isin(data_dict.keys())]
+
+train29.write('full/TRAIN_snRNA2_9M.h5ad', compression='gzip', compression_opts=3)
+val29.write('full/VAL_snRNA2_9M.h5ad', compression='gzip', compression_opts=3)
