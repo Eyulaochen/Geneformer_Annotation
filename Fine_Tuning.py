@@ -99,9 +99,9 @@ def FineTuning(training_data_dir, val_data_dir, output_dir):
     
     trainer.train()
     predictions = trainer.predict(organ_evalset)
-    with open(f"{output_dir}predictions.pickle", "wb") as fp:
+    with open(f'{output_dir}predictions.pickle', 'wb') as fp:
         pickle.dump(predictions, fp)
-    trainer.save_metrics("eval",predictions.metrics)
+    trainer.save_metrics('eval', predictions.metrics)
     trainer.save_model(output_dir)
     
 training_data_dir = 'data/downsampled372K_snrna.dataset'
