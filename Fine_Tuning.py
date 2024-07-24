@@ -19,7 +19,7 @@ def compute_metrics(pred):
       'macro_f1': macro_f1
     }
 
-def FineTuning(training_data_dir, output_dir):
+def FineTuning(training_data_dir, val_data_dir, output_dir):
     # set model parameters
     # max input size
     max_input_size = 2**11  # 2048
