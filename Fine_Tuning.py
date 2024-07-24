@@ -4,6 +4,7 @@ from collections import Counter
 from transformers import BertForSequenceClassification
 from sklearn.metrics import accuracy_score, f1_score
 
+# prepare the numerical labels
 training = sc.read_h5ad('data/downsampled372K_snrna.h5ad', backed='r')
 target_names = list(Counter(training.obs['celltype']))
 target_name_id_dict = dict(zip(target_names,[i for i in range(len(target_names))]))
@@ -14,8 +15,7 @@ target_name_id_dict = np.load('2_9M_111celltype.npy',allow_pickle='TRUE').item()
 def classes_to_ids(example):
     example["label"] = target_name_id_dict[example["label"]]
     return example
-evalset = ds.map(classes_to_ids, num_proc=16)
-
+        
 def compute_metrics(pred):
     labels = pred.label_ids
     preds = pred.predictions.argmax(-1)
