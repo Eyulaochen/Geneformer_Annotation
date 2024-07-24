@@ -108,4 +108,4 @@ training_data_dir = 'data/downsampled372K_snrna.dataset'
 val_data_dir = 'data/VAL_snRNA2_9M.dataset'
 out_dir = 'output_models'
 
-
+FineTuning(training_data_dir, val_data_dir, output_dir)
