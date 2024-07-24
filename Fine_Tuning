@@ -1,1 +1,7 @@
 
+
+
+def classes_to_ids(example):
+    example["label"] = target_name_id_dict[example["label"]]
+    return example
+evalset = ds.map(classes_to_ids, num_proc=16)
