@@ -1,8 +1,16 @@
 import scanpy as sc
+import numpy as np
+from collections import Counter
 from transformers import BertForSequenceClassification
 from sklearn.metrics import accuracy_score, f1_score
 
+training = sc.read_h5ad('data/downsampled372K_snrna.h5ad', backed='r')
+target_names = list(Counter(training.obs['celltype']))
+target_name_id_dict = dict(zip(target_names,[i for i in range(len(target_names))]))
+np.save('2_9M_111celltype.npy', target_name_id_dict)
+target_name_id_dict = np.load('2_9M_111celltype.npy',allow_pickle='TRUE').item()
 
+        
 def classes_to_ids(example):
     example["label"] = target_name_id_dict[example["label"]]
     return example
@@ -18,6 +26,7 @@ def compute_metrics(pred):
       'accuracy': acc,
       'macro_f1': macro_f1
     }
+
 
 def FineTuning(training_data_dir, val_data_dir, output_dir):
     # set model parameters
