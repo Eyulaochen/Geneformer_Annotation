@@ -1,7 +1,7 @@
 import scanpy as sc
 from collections import Counter
 
-full29 = sc.read_h5ad('full/HRCAv2_snRNA.h5ad', backed='r')
+full29 = sc.read_h5ad('data/HRCAv2_snRNA.h5ad', backed='r')
 print(Counter(full29.obs['celltype']))
 
 data_dict = {
@@ -16,5 +16,5 @@ data_dict = {
 train29 = full29[~full29.obs['sampleid'].isin(data_dict.keys())]
 val29 = full29[full29.obs['sampleid'].isin(data_dict.keys())]
 
-train29.write('full/TRAIN_snRNA2_9M.h5ad', compression='gzip', compression_opts=3)
-val29.write('full/VAL_snRNA2_9M.h5ad', compression='gzip', compression_opts=3)
+train29.write('data/TRAIN_snRNA2_9M.h5ad', compression='gzip', compression_opts=3)
+val29.write('data/VAL_snRNA2_9M.h5ad', compression='gzip', compression_opts=3)
