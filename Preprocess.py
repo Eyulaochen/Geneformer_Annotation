@@ -2,6 +2,7 @@ import pickle
 import scanpy as sc
 import numpy as np
 from collections import Counter
+from datasets import Dataset
 from datasets import load_from_disk
 from geneformer.pretrainer import token_dictionary
 with open('gene_name_id_dict.pkl', 'rb') as f:
