@@ -1,5 +1,5 @@
 import os
-import scanpy 
+import scanpy as sc
 import torch
 import pickle
 import numpy as np
