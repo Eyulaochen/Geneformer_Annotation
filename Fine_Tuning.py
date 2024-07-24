@@ -43,5 +43,25 @@ def FineTuning(training_data_dir, val_data_dir, output_dir):
     # optimizer
     optimizer = 'adamw'
 
+    training_args = {
+        "learning_rate": max_lr,
+        "do_train": True,
+        "do_eval": True,
+        "evaluation_strategy": "epoch",
+        "save_strategy": "epoch",
+        "logging_steps": logging_steps,
+        "group_by_length": True,
+        "length_column_name": "length",
+        "disable_tqdm": False,
+        "lr_scheduler_type": lr_schedule_fn,
+        "warmup_steps": warmup_steps,
+        "weight_decay": 0.001,
+        "per_device_train_batch_size": geneformer_batch_size,
+        "per_device_eval_batch_size": geneformer_batch_size,
+        "num_train_epochs": epochs,
+        "load_best_model_at_end": True,
+        "output_dir": output_dir,
+        }
+    
     
     
