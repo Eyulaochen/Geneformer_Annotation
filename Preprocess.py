@@ -52,10 +52,10 @@ def process(data_dir):
     
     data_dict = {"label": data.obs['celltype'], "input_ids": data_list_, "length": lengths}
     ds = Dataset.from_dict(data_dict)
-    ds.save_to_disk(data_dir[:-9] + '.dataset')
+    ds.save_to_disk(data_dir[:-8] + '.dataset')
 
 data_dir = 'full/VAL_snRNA2_9M.h5ad'
 process(data_dir)
 
-test = load_from_disk(data_dir)
+test = load_from_disk(data_dir[:-8] + '.dataset')
 print(test[0])
