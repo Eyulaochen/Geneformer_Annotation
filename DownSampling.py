@@ -1,7 +1,7 @@
 import scanpy as sc
 from collections import Counter
 
-train29 = sc.read_h5ad('full/TRAIN_snRNA2_9M.h5ad', backed='r')
+train29 = sc.read_h5ad('data/TRAIN_snRNA2_9M.h5ad', backed='r')
 print(Counter(train29.obs['celltype']))
 
 classes_to_downsample = []
@@ -33,4 +33,4 @@ all_selected_indices = np.concatenate(selected_indices)
 remaining_indices = np.setdiff1d(np.arange(len(train29)), all_selected_indices)
 downsampled_adata = train29[remaining_indices]
 
-downsampled_adata.write("downsampled372K_snrna.h5ad", compression="gzip", compression_opts=3)
+downsampled_adata.write('data/downsampled372K_snrna.h5ad', compression='gzip', compression_opts=3)
