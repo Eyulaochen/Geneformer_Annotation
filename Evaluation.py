@@ -14,6 +14,5 @@ with open('gene_name_id_dict.pkl', 'rb') as f:
 with open('gene_median_dictionary.pkl', 'rb') as f:
     median = pickle.load(f)
 
-
 target_name_id_dict = np.load('2_9M_111celltype.npy',allow_pickle='TRUE').item()
 
