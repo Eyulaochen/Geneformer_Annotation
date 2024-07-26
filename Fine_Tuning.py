@@ -16,7 +16,7 @@ target_name_id_dict = np.load('2_9M_111celltype.npy',allow_pickle='TRUE').item()
 del training
         
 def classes_to_ids(example):
-    example["label"] = target_name_id_dict[example["label"]]
+    example['label'] = target_name_id_dict[example['label']]
     return example
         
 def compute_metrics(pred):
