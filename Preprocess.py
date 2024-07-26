@@ -56,7 +56,7 @@ def process(data_dir):
     ds.save_to_disk(data_dir[:-5] + '.dataset')
 
 #data_dir = 'data/VAL_snRNA2_9M.h5ad'
-#process(data_dir)
+process(data_dir)
 
 #test = load_from_disk(data_dir[:-5] + '.dataset')
 #print(test[0])
