@@ -1,4 +1,5 @@
 import os
+import sys
 import scanpy as sc
 import torch
 import pickle
@@ -64,7 +65,7 @@ def PR_f1(val_dir, val_label):
             rec = rec + recall
             f1 = f1 + 2*precision*recall/(precision+recall)
             file.write(celltype + ' ' + str(len(indices)) + ' ' + str(len(result))+ ' ' 
-                       + str(inter) + ':' + 'recall ' + str(recall) + ' ' + 'precsion '
+                       + str(inter) + ':' + 'rec ' + str(recall) + ' ' + 'pre '
                        + str(precision) + '\n')
     label_list = [target_name_id_dict[celltype] for celltype in val.obs['celltype']]
     file.write('\n' + '\n' + '\n')
@@ -72,3 +73,5 @@ def PR_f1(val_dir, val_label):
     file.write('ave-pre:' + str(pre/len(Counter(val.obs['celltype']))) + '\n')
     file.write('ave-rec:' + str(rec/len(Counter(val.obs['celltype']))) + '\n')
     file.write('macro_f1:' + str(f1/len(list(Counter(val.obs['celltype'])))) + '\n')
+
+
