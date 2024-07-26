@@ -22,7 +22,7 @@ def classes_to_ids(example):
     example["label"] = target_name_id_dict[example["label"]]
     return example
 
-model = BertForSequenceClassification.from_pretrained("checkpoint-1428300", 
+model = BertForSequenceClassification.from_pretrained('checkpoint-1428300', 
                                                       num_labels=len(target_name_id_dict),
                                                       output_attentions = False,
                                                       output_hidden_states = False).to(cuda)
