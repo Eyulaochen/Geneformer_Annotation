@@ -7,7 +7,7 @@ train = sc.read_h5ad(sys.argv[1], backed='r')
 #print(Counter(train.obs['celltype']))
 
 classes_to_downsample = []
-downsample = sys.argv[2]
+downsample = int(sys.argv[2])
 for celltype in train.obs['celltype'].unique():
     cell_indices = np.where(train.obs['celltype'] == celltype)[0]
     if (len(cell_indices)>downsample):
