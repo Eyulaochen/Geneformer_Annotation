@@ -13,8 +13,8 @@ for celltype in train.obs['celltype'].unique():
     if (len(cell_indices)>downsample):
         classes_to_downsample.append([celltype, len(cell_indices)])
 
-print(classes_to_downsample)
-print(len(classes_to_downsample))
+#print(classes_to_downsample)
+#print(len(classes_to_downsample))
 
 classes_to_downsample = [x[0] for x in classes_to_downsample]
 
