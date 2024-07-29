@@ -1,8 +1,10 @@
+import sys 
 import scanpy as sc
 from collections import Counter
 
-full = sc.read_h5ad('data/HRCAv2_snRNA.h5ad', backed='r')
-print(Counter(full.obs['celltype']))
+full = sc.read_h5ad(sys.argv[1], backed='r')
+name = sys.argv[1].split('/')[-1]
+#print(Counter(full.obs['celltype']))
 
 data_dict = {
         'Chen_a_10x3_Lobe_19_D003_Nu': 'no_enriched',
@@ -16,5 +18,5 @@ data_dict = {
 train = full[~full.obs['sampleid'].isin(data_dict.keys())]
 val = full[full.obs['sampleid'].isin(data_dict.keys())]
 
-train.write('data/TRAIN_snRNA2_9M.h5ad', compression='gzip', compression_opts=3)
-val.write('data/VAL_snRNA2_9M.h5ad', compression='gzip', compression_opts=3)
+train.write(sys.argv[1][:-5] + '/TRAIN_' + name, compression='gzip', compression_opts=3)
+val.write(sys.argv[1][:-5] + '/VAL_' + name, compression='gzip', compression_opts=3)
