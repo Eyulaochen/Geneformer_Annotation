@@ -1,3 +1,4 @@
+import sys
 import scanpy as sc
 import numpy as np
 from collections import Counter
@@ -7,10 +8,18 @@ from transformers import BertForSequenceClassification
 from sklearn.metrics import accuracy_score, f1_score
 from geneformer import DataCollatorForCellClassification
 
-target_name_id_dict = np.load('2_9M_111celltype.npy',allow_pickle='TRUE').item()
-
+'''
+# prepare the numerical labels
+training = sc.read_h5ad(sys.argv[2], backed='r')
+target_names = list(Counter(training.obs['celltype']))
+target_name_id_dict = dict(zip(target_names,[i for i in range(len(target_names))]))
+np.save('2_9M_111celltype.npy', target_name_id_dict)
+'''
+target_name_id_dict = np.load(sys.argv[1],allow_pickle='TRUE').item()
+#del training
+        
 def classes_to_ids(example):
-    example['label'] = target_name_id_dict[example['label']]
+    example["label"] = target_name_id_dict[example["label"]]
     return example
         
 def compute_metrics(pred):
@@ -79,7 +88,7 @@ def FineTuning(training_data_dir, val_data_dir, output_dir):
     training_args_init = TrainingArguments(**training_args)
 
     model = BertForSequenceClassification.from_pretrained('geneformer-12L-30M', 
-                                                      num_labels=len(target_name_id_dict),
+                                                      num_labels=len(target_name_id_dict)),
                                                       output_attentions = False,
                                                       output_hidden_states = False)
     trainer = Trainer(
@@ -98,8 +107,9 @@ def FineTuning(training_data_dir, val_data_dir, output_dir):
     trainer.save_metrics('eval', predictions.metrics)
     trainer.save_model(output_dir)
     
-training_data_dir = 'data/downsampled372K_snrna.dataset'
-val_data_dir = 'data/VAL_snRNA2_9M.dataset'
-out_dir = 'output_models'
+training_data_dir = sys.argv[2]
+val_data_dir = sys.argv[3]
+out_dir = sys.argv[4]
 
 FineTuning(training_data_dir, val_data_dir, output_dir)
+
