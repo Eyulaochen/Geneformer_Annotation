@@ -1,9 +1,10 @@
 import sys
+import numpy as np
 import scanpy as sc
 from collections import Counter
 
 train = sc.read_h5ad(sys.argv[1], backed='r')
-print(Counter(train.obs['celltype']))
+#print(Counter(train.obs['celltype']))
 
 classes_to_downsample = []
 downsample = sys.argv[2]
