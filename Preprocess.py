@@ -1,3 +1,4 @@
+import sys
 import pickle
 import scanpy as sc
 import numpy as np
@@ -55,7 +56,7 @@ def process(data_dir):
     ds = Dataset.from_dict(data_dict)
     ds.save_to_disk(data_dir[:-5] + '.dataset')
 
-#data_dir = 'data/VAL_snRNA2_9M.h5ad'
+data_dir = sys.argv[1]
 process(data_dir)
 
 #test = load_from_disk(data_dir[:-5] + '.dataset')
