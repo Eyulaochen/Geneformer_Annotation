@@ -1,13 +1,14 @@
+import sys
 import scanpy as sc
 from collections import Counter
 
-train29 = sc.read_h5ad('data/TRAIN_snRNA2_9M.h5ad', backed='r')
-print(Counter(train29.obs['celltype']))
+train = sc.read_h5ad(sys.argv[1], backed='r')
+print(Counter(train.obs['celltype']))
 
 classes_to_downsample = []
-downsample = 5000
-for celltype in train29.obs['celltype'].unique():
-    cell_indices = np.where(train29.obs['celltype'] == celltype)[0]
+downsample = sys.argv[2]
+for celltype in train.obs['celltype'].unique():
+    cell_indices = np.where(train.obs['celltype'] == celltype)[0]
     if (len(cell_indices)>downsample):
         classes_to_downsample.append([celltype, len(cell_indices)])
 
@@ -18,11 +19,11 @@ classes_to_downsample = [x[0] for x in classes_to_downsample]
 
 selected_indices = []
 for class_label in classes_to_downsample:
-    class_indices = np.where(train29.obs['celltype'] == class_label)[0]
+    class_indices = np.where(train.obs['celltype'] == class_label)[0]
     factor = downsample/len(class_indices)
     selected_class_indices = []
-    for sample in list(Counter(train29.obs['sampleid'])):
-        class_sample = np.where((train29.obs['celltype'] == class_label) & (train29.obs['sampleid'] == sample))[0]
+    for sample in list(Counter(train.obs['sampleid'])):
+        class_sample = np.where((train.obs['celltype'] == class_label) & (train.obs['sampleid'] == sample))[0]
         num_samples_to_del = int(len(class_sample) * (1-factor))
         selected_class_sample = np.random.choice(class_sample, size=num_samples_to_del, replace=False)
         selected_class_indices.append(selected_class_sample)
@@ -30,7 +31,8 @@ for class_label in classes_to_downsample:
     selected_indices.append(selected_class_indices_)
     
 all_selected_indices = np.concatenate(selected_indices)
-remaining_indices = np.setdiff1d(np.arange(len(train29)), all_selected_indices)
-downsampled_adata = train29[remaining_indices]
+remaining_indices = np.setdiff1d(np.arange(len(train)), all_selected_indices)
+downsampled_adata = train[remaining_indices]
 
-downsampled_adata.write('data/downsampled372K_snrna.h5ad', compression='gzip', compression_opts=3)
+name = sys.argv[1].split('/')[-1]
+downsampled_adata.write(sys.argv[1][:-len(name)]+'DownSampled_'+name, compression='gzip', compression_opts=3)
