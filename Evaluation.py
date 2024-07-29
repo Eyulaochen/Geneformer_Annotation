@@ -22,7 +22,7 @@ def classes_to_ids(example):
     example["label"] = target_name_id_dict[example["label"]]
     return example
 
-model = BertForSequenceClassification.from_pretrained('checkpoint-1428300', 
+model = BertForSequenceClassification.from_pretrained(sys.argv[1], 
                                                       num_labels=len(target_name_id_dict),
                                                       output_attentions = False,
                                                       output_hidden_states = False).to(cuda)
@@ -73,5 +73,10 @@ def PR_f1(val_dir, val_label):
     file.write('ave-pre:' + str(pre/len(Counter(val.obs['celltype']))) + '\n')
     file.write('ave-rec:' + str(rec/len(Counter(val.obs['celltype']))) + '\n')
     file.write('macro_f1:' + str(f1/len(list(Counter(val.obs['celltype'])))) + '\n')
+    
+    
+val_dir = sys.argv[2]
+evaluation(val_dir, fmt = 'h5ad', cuda = 'cuda:0')
 
+PR_f1(val_dir, val_dir[:-5] + '.pth')
 
