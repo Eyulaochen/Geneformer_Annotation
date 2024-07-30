@@ -111,7 +111,8 @@ def PR_f1(val_dir, val_label):
             recall = inter/len(indices)
             pre = pre + precision
             rec = rec + recall
-            f1 = f1 + 2*precision*recall/(precision+recall)
+            if (inter != 0):
+                f1 = f1 + 2*precision*recall/(precision+recall)
             file.write(celltype + ' ' + str(len(indices)) + ' ' + str(len(result))+ ' ' 
                        + str(inter) + ':' + 'rec ' + str(recall) + ' ' + 'pre '
                        + str(precision) + '\n')
