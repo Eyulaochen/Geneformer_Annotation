@@ -68,6 +68,8 @@ def classes_to_ids(example):
     example["label"] = target_name_id_dict[example["label"]]
     return example
 
+cuda = 'cuda:0'
+
 model = BertForSequenceClassification.from_pretrained(sys.argv[1], 
                                                       num_labels=len(target_name_id_dict),
                                                       output_attentions = False,
