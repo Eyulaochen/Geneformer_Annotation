@@ -109,7 +109,7 @@ def FineTuning(training_data_dir, val_data_dir, output_dir):
     
 training_data_dir = sys.argv[2]
 val_data_dir = sys.argv[3]
-out_dir = sys.argv[4]
+output_dir = sys.argv[4]
 
 FineTuning(training_data_dir, val_data_dir, output_dir)
 
