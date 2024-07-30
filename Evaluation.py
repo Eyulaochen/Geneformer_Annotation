@@ -10,6 +10,7 @@ from collections import Counter
 from datasets import load_from_disk
 from datasets import Dataset
 from geneformer.pretrainer import token_dictionary
+from transformers import BertForSequenceClassification
 #from Preprocess import process
 with open('gene_name_id_dict.pkl', 'rb') as f:
     names = pickle.load(f)
