@@ -86,7 +86,7 @@ def FineTuning(training_data_dir, val_data_dir, output_dir):
         }
     training_args_init = TrainingArguments(**training_args)
 
-    model = BertForSequenceClassification.from_pretrained('geneformer-12L-30M', 
+    model = BertForSequenceClassification.from_pretrained('PreTrain_Model/geneformer-12L-30M', 
                                                       num_labels=len(target_name_id_dict),
                                                       output_attentions = False,
                                                       output_hidden_states = False)
