@@ -58,7 +58,13 @@ def FineTuning(training_data_dir, val_data_dir, output_dir):
     # optimizer
     optimizer = 'adamw'
 
+    ds = load_from_disk(training_data_dir)
+    organ_trainset = ds.map(classes_to_ids, num_proc=16)
+    ds = load_from_disk(val_data_dir)
+    organ_evalset = ds.map(classes_to_ids, num_proc=16)
+    del ds
     logging_steps = round(len(organ_trainset)/geneformer_batch_size/10)
+
     training_args = {
         "learning_rate": max_lr,
         "do_train": True,
@@ -78,13 +84,6 @@ def FineTuning(training_data_dir, val_data_dir, output_dir):
         "load_best_model_at_end": True,
         "output_dir": output_dir,
         }
-
-    ds = load_from_disk(training_data_dir)
-    organ_trainset = ds.map(classes_to_ids, num_proc=16)
-    ds = load_from_disk(val_data_dir)
-    organ_evalset = ds.map(classes_to_ids, num_proc=16)
-    del ds
-
     training_args_init = TrainingArguments(**training_args)
 
     model = BertForSequenceClassification.from_pretrained('geneformer-12L-30M', 
