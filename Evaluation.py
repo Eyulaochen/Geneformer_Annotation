@@ -62,7 +62,7 @@ def process(data_dir):
     ds = Dataset.from_dict(data_dict)
     ds.save_to_disk(data_dir[:-5] + '.dataset')
 
-target_name_id_dict = np.load('2_9M_111celltype.npy',allow_pickle='TRUE').item()
+target_name_id_dict = np.load(sys.argv[1],allow_pickle='TRUE').item()
 
 def classes_to_ids(example):
     example["label"] = target_name_id_dict[example["label"]]
@@ -70,7 +70,7 @@ def classes_to_ids(example):
 
 cuda = 'cuda:0'
 
-model = BertForSequenceClassification.from_pretrained(sys.argv[1], 
+model = BertForSequenceClassification.from_pretrained(sys.argv[2], 
                                                       num_labels=len(target_name_id_dict),
                                                       output_attentions = False,
                                                       output_hidden_states = False).to(cuda)
@@ -124,7 +124,7 @@ def PR_f1(val_dir, val_label):
     file.write('macro_f1:' + str(f1/len(list(Counter(val.obs['celltype'])))) + '\n')
     
     
-val_dir = sys.argv[2]
+val_dir = sys.argv[3]
 evaluation(val_dir, fmt = 'h5ad', cuda = 'cuda:0')
 
 PR_f1(val_dir, val_dir[:-5] + '.pth')
