@@ -64,7 +64,7 @@ def FineTuning(training_data_dir, val_data_dir, output_dir):
     organ_evalset = ds.map(classes_to_ids, num_proc=16)
     del ds
     logging_steps = round(len(organ_trainset)/geneformer_batch_size/10)
-
+    
     training_args = {
         "learning_rate": max_lr,
         "do_train": True,
