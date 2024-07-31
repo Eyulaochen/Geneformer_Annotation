@@ -12,3 +12,6 @@ Scanpy <br/>
 Datasets https://huggingface.co/docs/datasets/en/index <br/>
 Hugging Face <br/>
 geneformer
+
+
+GPU 100g
