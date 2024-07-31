@@ -10,6 +10,12 @@ from transformers import BertForSequenceClassification
 from sklearn.metrics import accuracy_score, f1_score
 from geneformer import DataCollatorForCellClassification
 
+# GPU devices
+import os
+GPU_NUMBER = [0, 1]
+os.environ["CUDA_VISIBLE_DEVICES"] = ",".join([str(s) for s in GPU_NUMBER])
+os.environ["NCCL_DEBUG"] = "INFO"
+
 '''
 # prepare the numerical labels
 training = sc.read_h5ad(sys.argv[2], backed='r')
