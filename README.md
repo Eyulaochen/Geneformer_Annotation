@@ -8,6 +8,7 @@ Installing Geneformer ref https://huggingface.co/ctheodoris/Geneformer
 Downloading  geneformer-12L-30M from https://huggingface.co/ctheodoris/Geneformer/tree/main/geneformer-12L-30M into PreTrain_Model
 
 ## Dependencies
-Scanpy
-Datasets https://huggingface.co/docs/datasets/en/index
-Hugging Face
+Scanpy <br/>
+Datasets https://huggingface.co/docs/datasets/en/index <br/>
+Hugging Face <br/>
+geneformer
