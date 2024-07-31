@@ -14,4 +14,4 @@ Hugging Face <br/>
 geneformer
 
 
-GPU 100g
+GPU 100g   geneformer_batch_size   
